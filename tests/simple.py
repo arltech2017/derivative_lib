@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # vim: set fileencoding=utf-8 :
 import unittest
+from hypothesis import given
+from hypothesis import strategies as st
 
 from derivative_lib import Equation, Symbol
 
@@ -17,7 +19,8 @@ __module__      = ""
 
 
 class Addition(unittest.TestCase):
-    def testPrintsTrue(self):
+    @given(st.integers(), st.integers())
+    def testPrintsTrue(self, a, b):
         import operator
         addition = Equation(2, operator.add, "{args[0]} - {args[1]}")
-        self.assertEquals(Symbol(2), subtraction(Symbol(1), Symbol(1)))
+        self.assertEquals(Symbol(a + b), addition(Symbol(a), Symbol(b)))
