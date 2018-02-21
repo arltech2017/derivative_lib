@@ -10,4 +10,4 @@ test: test_syntax
 
 .IGNORE: test_syntax
 test_syntax:
-	pycodestyle -v $(SRCS)
+	pycodestyle $(SRCS)
