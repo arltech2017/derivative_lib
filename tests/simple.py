@@ -3,6 +3,7 @@
 import unittest
 from hypothesis import given
 from hypothesis import strategies as st
+import string
 
 from derivative_lib import Equation, Symbol
 
@@ -16,6 +17,26 @@ __maintainers__ = "Marco Sirabella"
 __email__       = "marco@sirabella.org"
 __status__      = "Prototype"  # "Prototype", "Development" or "Production"
 __module__      = ""
+
+
+class Init(unittest.TestCase):
+    @given(st.integers() |
+           st.floats() |
+           st.text(string.ascii_letters, min_size=1))
+    def testSymbolGeneric(self, a):
+        Symbol(a)
+
+
+class Equality(unittest.TestCase):
+    @given(st.integers())
+    def testEqualityInt(self, a):
+        self.assertEquals(Symbol(a), Symbol(a))
+
+    @given(st.integers() |
+           st.floats() |
+           st.text(string.ascii_letters, min_size=1))
+    def testEqualityGeneric(self, a):
+        self.assertEquals(Symbol(a), Symbol(a))
 
 
 class Addition(unittest.TestCase):
