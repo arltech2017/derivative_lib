@@ -50,4 +50,6 @@ class _Symbol(unittest.TestCase):
 
     @given(st.integers(), st.integers())
     def test__truediv__(self, a, b):
+        if b == 0:
+            return
         self.assertEquals(a / b, Symbol(a) / Symbol(b))
