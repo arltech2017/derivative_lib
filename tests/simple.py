@@ -19,29 +19,35 @@ __status__      = "Prototype"  # "Prototype", "Development" or "Production"
 __module__      = ""
 
 
-class Init(unittest.TestCase):
-    @given(st.integers() |
-           st.floats() |
-           st.text(string.ascii_letters, min_size=1))
-    def testSymbolGeneric(self, a):
+class _Symbol(unittest.TestCase):
+    valid_symbols = (st.integers() |
+                     st.floats() |
+                     st.text(string.ascii_letters, min_size=1))
+
+    @given(valid_symbols)
+    def test__init__(self, a):
         Symbol(a)
 
-
-class Equality(unittest.TestCase):
-    @given(st.integers())
-    def testEqualityInt(self, a):
+    @given(valid_symbols)
+    def test__eq__(self, a):
         self.assertEquals(Symbol(a), Symbol(a))
 
-    @given(st.integers() |
-           st.floats() |
-           st.text(string.ascii_letters, min_size=1))
-    def testEqualityGeneric(self, a):
-        self.assertEquals(Symbol(a), Symbol(a))
+    @given(valid_symbols, valid_symbols)
+    def test__neq__(self, a, b):
+        self.assertNotEquals(Symbol(a), Symbol(b))
 
-
-class Addition(unittest.TestCase):
     @given(st.integers(), st.integers())
-    def testEquality(self, a, b):
-        import operator
-        addition = Equation(2, operator.add, "{args[0]} - {args[1]}")
-        self.assertEquals(Symbol(a + b), addition(Symbol(a), Symbol(b)))
+    def test__add__(self, a, b):
+        self.assertEquals(a + b, Symbol(a) + Symbol(b))
+
+    @given(st.integers(), st.integers())
+    def test__sub__(self, a, b):
+        self.assertEquals(a - b, Symbol(a) - Symbol(b))
+
+    @given(st.integers(), st.integers())
+    def test__mul__(self, a, b):
+        self.assertEquals(a * b, Symbol(a) * Symbol(b))
+
+    @given(st.integers(), st.integers())
+    def test__truediv__(self, a, b):
+        self.assertEquals(a / b, Symbol(a) / Symbol(b))
