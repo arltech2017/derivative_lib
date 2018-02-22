@@ -41,7 +41,7 @@ class Equality(unittest.TestCase):
 
 class Addition(unittest.TestCase):
     @given(st.integers(), st.integers())
-    def testPrintsTrue(self, a, b):
+    def testEquality(self, a, b):
         import operator
         addition = Equation(2, operator.add, "{args[0]} - {args[1]}")
         self.assertEquals(Symbol(a + b), addition(Symbol(a), Symbol(b)))
