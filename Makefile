@@ -9,7 +9,7 @@ REQS=requirements.txt $(TESTDIR)/requirements.txt
 include python.mk
 export PATH := $(VENV)/bin:$(PATH)
 
-.DEFAULT_GOAL := mytarget
+.DEFAULT_GOAL := test
 
 .IGNORE: test
 test: test_syntax $(TESTDIR)/requirements.txt
