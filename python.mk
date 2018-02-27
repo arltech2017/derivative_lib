@@ -1,4 +1,5 @@
 VENV ?= venv
+export PATH := $(VENV)/bin:$(PATH)
 REQS ?= requirements.txt
 
 .DELETE_ON_ERROR: $(VENV)

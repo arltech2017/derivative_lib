@@ -7,7 +7,6 @@ TESTS   := $(shell find $(TESTDIR) -type f -name '*.py')
 export PYTHONPATH=$(abspath $(SRCDIR))
 REQS=requirements.txt $(TESTDIR)/requirements.txt
 include python.mk
-export PATH := $(VENV)/bin:$(PATH)
 
 .DEFAULT_GOAL := test
 
