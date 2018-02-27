@@ -76,7 +76,7 @@ class _Addition(unittest.TestCase):
 
     @given(*valid_symbols)
     def test__repr__(self, a, b):
-        self.assertEqual(repr(a) + ' + ' + repr(b), repr(Addition(a, b)))
+        self.assertEqual(str(a) + ' + ' + str(b), repr(Addition(a, b)))
 
     @given(*valid_symbols)
     def test_implicit_init(self, a, b):
