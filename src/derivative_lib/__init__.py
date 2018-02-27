@@ -30,7 +30,7 @@ class Symbol():
                 pass
         elif isinstance(op, Expression):
             pass
-        else:  #If the second operand isn't a symbol or expression, turn it into a symbol
+        else:
             return self + Symbol(op)
 
     def __sub__(self, op):
@@ -69,6 +69,13 @@ class Symbol():
     def __str__(self):
         return str(self.data)
 
+class Addition():
+    def __init__(self, op1, op2):
+        self.op1 = op1
+        self.op2 = op2
+
+    def __repr__(self):
+        return str(self.op1) + " + " + str(self.op2)
 
 class Expression():
     pass
