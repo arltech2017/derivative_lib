@@ -70,6 +70,12 @@ class _Addition(unittest.TestCase):
     def test__init__(self, a, b):
         Addition(a, b)
 
+    def test__eq__(self, a, b):
+        self.assertEqual(a + b, Addition(a, b))
+
+    def test__repr__(self, a, b):
+        self.assertEqual(repr(a) + ' + ' + repr(b), repr(Addition(a, b)))
+
 
 """
 class _Expression(unittest.TestCase):
