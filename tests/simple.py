@@ -30,7 +30,10 @@ class _Symbol(unittest.TestCase):
 
     @given(valid_symbols)
     def test__eq__(self, a):
-        self.assertEqual(Symbol(a), Symbol(a))
+        if a != a:  # For those pesky NaNs
+            self.assertNotEqual(Symbol(a), Symbol(a))
+        else:
+            self.assertEqual(Symbol(a), Symbol(a))
 
     @given(valid_symbols, valid_symbols)
     def test__neq__(self, a, b):
