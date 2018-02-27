@@ -4,10 +4,16 @@ TESTDIR ?= tests
 SRCS    := $(shell find $(SRCDIR)  -type f -name '*.py')
 TESTS   := $(shell find $(TESTDIR) -type f -name '*.py')
 
-.IGNORE: test
-test: test_syntax
-	PYTHONPATH=$(SRCDIR) python3 -m unittest -v $(TESTS)
+export PYTHONPATH=$(abspath $(SRCDIR))
+REQS=requirements.txt $(TESTDIR)/requirements.txt
+include python.mk
+export PATH := $(VENV)/bin:$(PATH)
 
-.IGNORE: test_syntax
-test_syntax:
+.IGNORE: test
+test: test_syntax $(TESTDIR)/requirements.txt
+	python3 -m unittest -v $(TESTS)
+
+.IGNORE: test_syntax 
+test_syntax: $(TESTDIR)/requirements.txt
 	pycodestyle $(SRCS)
+
