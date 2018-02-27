@@ -9,6 +9,8 @@ REQS=requirements.txt $(TESTDIR)/requirements.txt
 include python.mk
 export PATH := $(VENV)/bin:$(PATH)
 
+.DEFAULT_GOAL := mytarget
+
 .IGNORE: test
 test: test_syntax $(TESTDIR)/requirements.txt
 	python3 -m unittest -v $(TESTS)
