@@ -78,6 +78,10 @@ class _Addition(unittest.TestCase):
     def test__repr__(self, a, b):
         self.assertEqual(repr(a) + ' + ' + repr(b), repr(Addition(a, b)))
 
+    @given(*valid_symbols)
+    def test_implicit_init(self, a, b):
+        self.assertEqual(Addition(a, b), Symbol(a) + Symbol(b))
+
 
 """
 class _Expression(unittest.TestCase):
