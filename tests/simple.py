@@ -87,6 +87,7 @@ class _Addition(unittest.TestCase):
 
     @given(*valid_numbers)
     def test_implicit_init(self, a, b):
+        self.assertIsInstance(Symbol(a) + Symbol(b), Addition)
         self.assertEqual(Addition(a, b), Symbol(a) + Symbol(b))
 
 
