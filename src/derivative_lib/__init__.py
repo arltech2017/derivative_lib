@@ -75,7 +75,7 @@ class Addition():
         self.op2 = op2
 
     def __repr__(self):
-        return str(self.op1) + " + " + str(self.op2)
+        return repr(self.op1) + " + " + repr(self.op2)
 
 class Expression():
     pass
