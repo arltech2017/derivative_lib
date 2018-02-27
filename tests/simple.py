@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # vim: set fileencoding=utf-8 :
 import unittest
-from hypothesis import given
+from hypothesis import given, reproduce_failure
 from hypothesis import strategies as st
 import string
 
@@ -30,31 +30,31 @@ class _Symbol(unittest.TestCase):
 
     @given(valid_symbols)
     def test__eq__(self, a):
-        self.assertEquals(Symbol(a), Symbol(a))
+        self.assertEqual(Symbol(a), Symbol(a))
 
     @given(valid_symbols, valid_symbols)
     def test__neq__(self, a, b):
         if a == b:
             return
-        self.assertNotEquals(Symbol(a), Symbol(b))
+        self.assertNotEqual(Symbol(a), Symbol(b))
 
     @given(st.integers(), st.integers())
     def test__add__(self, a, b):
-        self.assertEquals(a + b, Symbol(a) + Symbol(b))
+        self.assertEqual(a + b, Symbol(a) + Symbol(b))
 
     @given(st.integers(), st.integers())
     def test__sub__(self, a, b):
-        self.assertEquals(a - b, Symbol(a) - Symbol(b))
+        self.assertEqual(a - b, Symbol(a) - Symbol(b))
 
     @given(st.integers(), st.integers())
     def test__mul__(self, a, b):
-        self.assertEquals(a * b, Symbol(a) * Symbol(b))
+        self.assertEqual(a * b, Symbol(a) * Symbol(b))
 
     @given(st.integers(), st.integers())
     def test__truediv__(self, a, b):
         if b == 0:
             return
-        self.assertEquals(a / b, Symbol(a) / Symbol(b))
+        self.assertEqual(a / b, Symbol(a) / Symbol(b))
 
 
 class _Expression(unittest.TestCase):
@@ -67,5 +67,5 @@ class _Expression(unittest.TestCase):
         import operator
         addition = Expression(operator.add)
 
-        self.assertEquals(a + b, addition(a, b))
-        self.assertEquals(a + b, addition(Symbol(a), Symbol(b)))
+        self.assertEqual(a + b, addition(a, b))
+        self.assertEqual(a + b, addition(Symbol(a), Symbol(b)))
