@@ -17,5 +17,5 @@ class Symbol():
     pass
 
 
-class Equation():
+class Expression():
     pass
