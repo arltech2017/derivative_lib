@@ -5,7 +5,7 @@ from hypothesis import given, reproduce_failure
 from hypothesis import strategies as st
 import string
 
-from derivative_lib import Expression, Symbol
+from derivative_lib import Symbol, Addition
 
 __appname__     = "simple"
 __author__      = "Marco Sirabella"
@@ -60,6 +60,18 @@ class _Symbol(unittest.TestCase):
         self.assertEqual(a / b, Symbol(a) / Symbol(b))
 
 
+class _Addition(unittest.TestCase):
+    valid_symbols = [(st.integers() |
+                     st.floats() |
+                     st.text(string.ascii_letters, min_size=1)) for _ in
+                     range(2)]
+
+    @given(*valid_symbols)
+    def test__init__(self, a, b):
+        Addition(a, b)
+
+
+"""
 class _Expression(unittest.TestCase):
     def test_factory(self):
         import operator
@@ -72,3 +84,4 @@ class _Expression(unittest.TestCase):
 
         self.assertEqual(a + b, addition(a, b))
         self.assertEqual(a + b, addition(Symbol(a), Symbol(b)))
+        """
