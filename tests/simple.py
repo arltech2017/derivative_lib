@@ -5,7 +5,7 @@ from hypothesis import given
 from hypothesis import strategies as st
 import string
 
-from derivative_lib import Equation, Symbol
+from derivative_lib import Expression, Symbol
 
 __appname__     = "simple"
 __author__      = "Marco Sirabella"
@@ -53,3 +53,17 @@ class _Symbol(unittest.TestCase):
         if b == 0:
             return
         self.assertEquals(a / b, Symbol(a) / Symbol(b))
+
+
+class _Expression(unittest.TestCase):
+    def test_factory(self):
+        import operators
+        addition = Expression(operators.sum)
+
+    @given(st.integers(), st.integers())
+    def test__eq__(self, a, b):
+        import operators
+        addition = Expression(operators.sum)
+
+        self.assertEquals(a + b, addition(a, b))
+        self.assertEquals(a + b, addition(Symbol(a), Symbol(b)))
