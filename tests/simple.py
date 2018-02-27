@@ -29,6 +29,10 @@ class _Symbol(unittest.TestCase):
         Symbol(a)
 
     @given(valid_symbols)
+    def test__repr__(self, a):
+        self.assertEqual(str(a), str(Symbol(a)))
+
+    @given(valid_symbols)
     def test__eq__(self, a):
         if a != a:  # For those pesky NaNs
             self.assertNotEqual(Symbol(a), Symbol(a))
