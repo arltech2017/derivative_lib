@@ -74,8 +74,17 @@ class Addition():
         self.op1 = op1
         self.op2 = op2
 
+    def __eq__(self, op):
+        try:
+            result = op1 + op2
+            if result == op:
+                return True
+            return False
+        except TypeError:
+            return False 
+
     def __repr__(self):
-        return repr(self.op1) + " + " + repr(self.op2)
+        return str(self.op1) + " + " + str(self.op2)
 
 class Expression():
     pass
