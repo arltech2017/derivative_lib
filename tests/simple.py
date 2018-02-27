@@ -34,6 +34,8 @@ class _Symbol(unittest.TestCase):
 
     @given(valid_symbols, valid_symbols)
     def test__neq__(self, a, b):
+        if a == b:
+            return
         self.assertNotEquals(Symbol(a), Symbol(b))
 
     @given(st.integers(), st.integers())
