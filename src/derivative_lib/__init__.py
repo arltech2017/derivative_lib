@@ -81,9 +81,9 @@ class Addition():
                 return True
             return False
         except TypeError:
-            return False 
+            return False
 
-    def __repr__(self):
+    def __str__(self):
         return str(self.op1) + " + " + str(self.op2)
 
 class Expression():

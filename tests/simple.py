@@ -29,7 +29,7 @@ class _Symbol(unittest.TestCase):
         Symbol(a)
 
     @given(valid_symbols)
-    def test__repr__(self, a):
+    def test__str__(self, a):
         self.assertEqual(str(a), str(Symbol(a)))
 
     @given(valid_symbols)
@@ -77,8 +77,8 @@ class _Addition(unittest.TestCase):
         Addition(a, b)
 
     @given(*valid_symbols)
-    def test__repr__(self, a, b):
-        self.assertEqual(str(a) + ' + ' + str(b), repr(Addition(a, b)))
+    def test__str__(self, a, b):
+        self.assertEqual(str(a) + ' + ' + str(b), str(Addition(a, b)))
 
     @given(*[valid_numbers] * 2)
     def test__eq__(self, a, b):
