@@ -89,6 +89,23 @@ class _Addition(unittest.TestCase):
         self.assertIsInstance(Symbol(a) + Symbol(b), Addition)
         self.assertEqual(Addition(a, b), Symbol(a) + Symbol(b))
 
+    @given(*(valid_numbers * 5))
+    def test__add__(self, a, b, c, d, e):
+        addition_expression1 = Addition(a, b)
+        addition_expression2 = Addition(c, d)
+        symbol1 = Symbol(e)
+
+        self.assertIsInstance(addition_expression1 + addition_expression2,
+                              Addition)
+
+        self.assertIsEqual(a + b + c + d,
+                           addition_expression1 + addition_expression2)
+
+        self.assertIsInstance(addition_expression1 + symbol1,
+                              Addition)
+        self.assertIsEqual(a + b + e,
+                           addition_expression1 + symbol1)
+
 
 """
 class _Expression(unittest.TestCase):
