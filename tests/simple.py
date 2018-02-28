@@ -70,7 +70,7 @@ class _Addition(unittest.TestCase):
                      st.text(string.ascii_letters, min_size=1)) for _ in
                      range(2)]
 
-    valid_numbers = (st.integers() | st.floats(allow_nan=False))
+    valid_numbers = (st.integers() | st.floats(allow_nan=False, allow_infinity=False))
 
     @given(*valid_symbols)
     def test__init__(self, a, b):
