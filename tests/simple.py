@@ -84,9 +84,9 @@ class _Addition(unittest.TestCase):
     def test__eq__(self, a, b):
         self.assertEqual(a + b, Addition(a, b))
 
-    @given(valid_numbers, st.text(string.ascii_letters, min_size=1))
-    def test_implicit_init(self, a, b):
-        self.assertEqual(Addition(a, b), Symbol(a) + Symbol(b))
+    @given(valid_numbers, valid_numbers, st.text(string.ascii_letters, min_size=1))
+    def test_implicit_init(self, a, b, c):
+        self.assertEqual(Addition(a, c), Symbol(a) + Symbol(c))
 
     @given(*[valid_numbers] * 5)
     def test__add__(self, a, b, c, d, e):
