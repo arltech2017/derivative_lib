@@ -92,6 +92,19 @@ class _Addition(unittest.TestCase):
 
         self.assertEqual(Symbol(a) + Symbol(b), Addition(a, b))
 
+    @given(*[valid_numbers] * 3 +
+            [st.text(string.ascii_letters, min_size=1)] * 3)
+    def test__add__(self, n1, n2, n3, s1, s2, s3):
+        expression1 = Addition(n1, s1)
+        expression2 = Addition(n2, s2)
+        expression3 = Addition(n1, n2)
+        symbol1 = Symbol(s3)
+
+        self.assertIsInstance(expression1 + expression2, Addition)
+
+        self.assertEqual(expression3 + Symbol(s1) + Symbol(s2),
+                         expression1 + expression2)
+
         self.assertIsEqual(a + b + c + d,
                            addition_expression1 + addition_expression2)
 
