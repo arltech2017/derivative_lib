@@ -70,7 +70,8 @@ class _Addition(unittest.TestCase):
                      st.text(string.ascii_letters, min_size=1)) for _ in
                      range(2)]
 
-    valid_numbers = (st.integers() | st.floats(allow_nan=False, allow_infinity=False))
+    valid_numbers = (st.integers() | st.floats(allow_nan=False,
+                                               allow_infinity=False))
 
     @given(*valid_symbols)
     def test__init__(self, a, b):
@@ -84,7 +85,8 @@ class _Addition(unittest.TestCase):
     def test__eq__(self, a, b):
         self.assertEqual(a + b, Addition(a, b))
 
-    @given(valid_numbers, valid_numbers, st.text(string.ascii_letters, min_size=1))
+    @given(valid_numbers, valid_numbers, st.text(string.ascii_letters,
+                                                 min_size=1))
     def test_implicit_init(self, a, b, c):
         self.assertEqual(Addition(a, c), Symbol(a) + Symbol(c))
 
