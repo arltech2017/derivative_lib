@@ -102,16 +102,11 @@ class _Addition(unittest.TestCase):
 
         self.assertIsInstance(expression1 + expression2, Addition)
 
-        self.assertEqual(expression3 + Symbol(s1) + Symbol(s2),
+        self.assertEqual(expression3 + s1 + s2,
                          expression1 + expression2)
 
-        self.assertIsEqual(a + b + c + d,
-                           addition_expression1 + addition_expression2)
-
-        self.assertIsInstance(addition_expression1 + symbol1,
-                              Addition)
-        self.assertIsEqual(a + b + e,
-                           addition_expression1 + symbol1)
+        self.assertEqual(expression3 + Symbol(s1) + Symbol(s2),
+                         expression1 + expression2)
 
 
 """
