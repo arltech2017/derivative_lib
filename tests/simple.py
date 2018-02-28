@@ -108,6 +108,9 @@ class _Addition(unittest.TestCase):
         self.assertEqual(expression3 + Symbol(s1) + Symbol(s2),
                          expression1 + expression2)
 
+        self.assertEqual(expression1 + expression2,
+                         Addition(expression1, expression2))
+
 
 """
 class _Expression(unittest.TestCase):
