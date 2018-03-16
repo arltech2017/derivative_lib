@@ -43,3 +43,7 @@ class Addition():
 
     def __add__(self, op):
         return Addition(self, op)
+
+    def __eq__(self, op):
+        o = normalize(op)
+        return (self.op1 == o.op1 and self.op2 == o.op2) or (self.op1 == o.op2 and self.op2 == o.op1)
