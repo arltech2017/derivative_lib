@@ -30,6 +30,7 @@ class Symbol():
         else:
             return self + Symbol(op)
 
+
 class Addition():
     def __init__(self, op1, op2):
         self.op1 = op1
@@ -40,6 +41,3 @@ class Addition():
 
     def __add__(self, op):
         return Addition(self, op)
-
-class Expression():
-    pass
