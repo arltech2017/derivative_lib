@@ -20,9 +20,7 @@ __module__      = ""
 
 
 class _Symbol(unittest.TestCase):
-    valid_symbols = (st.integers() |
-                     st.floats() |
-                     st.text(string.ascii_letters, min_size=1))
+    valid_symbol = st.text(string.ascii_letters, min_size=1)
 
     @given(valid_symbols)
     def test__init__(self, a):
@@ -34,10 +32,7 @@ class _Symbol(unittest.TestCase):
 
     @given(valid_symbols)
     def test__eq__(self, a):
-        if a != a:  # For those pesky NaNs
-            self.assertNotEqual(Symbol(a), Symbol(a))
-        else:
-            self.assertEqual(Symbol(a), Symbol(a))
+        self.assertEqual(Symbol(a), Symbol(a))
 
     @given(valid_symbols, valid_symbols)
     def test__neq__(self, a, b):
@@ -45,90 +40,27 @@ class _Symbol(unittest.TestCase):
             return
         self.assertNotEqual(Symbol(a), Symbol(b))
 
-    @given(st.integers(), st.integers())
+    @given(*[valid_symbol] * 2)
     def test__add__(self, a, b):
-        self.assertEqual(a + b, Symbol(a) + Symbol(b))
-
-    @given(st.integers(), st.integers())
-    def test__sub__(self, a, b):
-        self.assertEqual(a - b, Symbol(a) - Symbol(b))
-
-    @given(st.integers(), st.integers())
-    def test__mul__(self, a, b):
-        self.assertEqual(a * b, Symbol(a) * Symbol(b))
-
-    @given(st.integers(), st.integers())
-    def test__truediv__(self, a, b):
-        if b == 0:
-            return
-        self.assertEqual(a / b, Symbol(a) / Symbol(b))
+        self.assertIsInstance(Symbol(a) + Symbol(b), Addition)
 
 
 class _Addition(unittest.TestCase):
 
-    valid_numbers = (st.integers() | st.floats(allow_nan=False,
-                                               allow_infinity=False))
-    valid_symbols = [(valid_numbers | st.text(string.ascii_letters,
-                                              min_size=1))] * 2
+    valid_symbols = st.text(string.ascii_letters, min_size=1)
 
-    @given(*valid_symbols)
+    @given(*[valid_symbols] * 2)
     def test__init__(self, a, b):
         Addition(a, b)
 
-    @given(*valid_symbols)
+    @given(*[valid_symbols] * 2)
     def test__str__(self, a, b):
         self.assertEqual(str(a) + ' + ' + str(b), str(Addition(a, b)))
 
-    @given(*[valid_numbers] * 2)
+    @given(*[valid_symbols] * 2)
     def test__eq__(self, a, b):
-        self.assertEqual(a + b, Addition(a, b))
+        self.assertEqual(Addition(a, b), Addition(a, b))
 
-    @given(valid_numbers, valid_numbers, st.text(string.ascii_letters,
-                                                 min_size=1))
-    def test_implicit_init(self, a, b, c):
-        self.assertEqual(Addition(a, c), Symbol(a) + Symbol(c))
-
-        self.assertEqual(Symbol(a) + Symbol(b), a + b)
-
-        self.assertEqual(Symbol(a) + Symbol(b), Addition(a, b))
-
-    @given(*[valid_numbers] * 3 +
-            [st.text(string.ascii_letters, min_size=1)] * 3)
-    def test__add__(self, n1, n2, n3, s1, s2, s3):
-        expression1 = Addition(n1, s1)
-        expression2 = Addition(n2, s2)
-        expression3 = Addition(n1, n2)
-        symbol1 = Symbol(s3)
-
-        self.assertIsInstance(expression1 + expression2, Addition)
-
-        """
-        self.assertEqual(expression3 + s1 + s2,
-                         expression1 + expression2) # this is too complicated
-                                                     # TODO: move to simplify
-
-        self.assertEqual(expression3 + Symbol(s1) + Symbol(s2),
-                         expression1 + expression2)
-                                                     """
-
-        self.assertEqual(expression1 + expression2,
-                         Addition(expression1, expression2))
-
-        self.assertEqual(expression3,
-                         n1 + n2)
-
-
-"""
-class _Expression(unittest.TestCase):
-    def test_factory(self):
-        import operator
-        addition = Expression(operator.add)
-
-    @given(st.integers(), st.integers())
-    def test__eq__(self, a, b):
-        import operator
-        addition = Expression(operator.add)
-
-        self.assertEqual(a + b, addition(a, b))
-        self.assertEqual(a + b, addition(Symbol(a), Symbol(b)))
-        """
+    @given(*[valid_symbols] * 4)
+    def test__add__(self, a, b, c, d):
+        self.assertIsInstance(Addition(a, b) + Addition(c, d), Addition)
