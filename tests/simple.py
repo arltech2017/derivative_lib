@@ -22,19 +22,19 @@ __module__      = ""
 class _Symbol(unittest.TestCase):
     valid_symbol = st.text(string.ascii_letters, min_size=1)
 
-    @given(valid_symbols)
+    @given(valid_symbol)
     def test__init__(self, a):
         Symbol(a)
 
-    @given(valid_symbols)
+    @given(valid_symbol)
     def test__str__(self, a):
         self.assertEqual(str(a), str(Symbol(a)))
 
-    @given(valid_symbols)
+    @given(valid_symbol)
     def test__eq__(self, a):
         self.assertEqual(Symbol(a), Symbol(a))
 
-    @given(valid_symbols, valid_symbols)
+    @given(valid_symbol, valid_symbol)
     def test__neq__(self, a, b):
         if a == b:
             return
