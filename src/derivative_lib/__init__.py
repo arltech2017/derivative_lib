@@ -39,7 +39,8 @@ class Symbol():
 
 class Addition(Symbol):
     def __init__(self, op1, op2):
-        self.data = [normalize(op1), normalize(op2)]
+        from .utils import UnorderedList
+        self.data = UnorderedList([normalize(op1), normalize(op2)])
 
     def __str__(self):
         return str(self.data[0]) + " + " + str(self.data[1])
