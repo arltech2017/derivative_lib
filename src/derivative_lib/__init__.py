@@ -24,7 +24,7 @@ class Symbol():
 
     def __add__(self, op):
         if isinstance(op, Symbol):
-            return Addition(self+ op)
+            return Addition(self, op)
         elif isinstance(op, Expression):
             pass
         else:
