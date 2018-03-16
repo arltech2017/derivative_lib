@@ -27,5 +27,5 @@ class UnorderedList(list):
             other.remove(item)
         return not other
 
-    def __req__(self, other):
-        return self == other
+    def __neq__(self, other):
+        return not self == other
