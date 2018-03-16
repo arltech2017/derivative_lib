@@ -25,11 +25,13 @@ class Symbol():
         self.data = data
 
     def __eq__(self, op):
-        return normalize(self) == normalize(op)
+        return self.data == normalize(op).data
 
     def __add__(self, op):
         return Addition(self, op)
 
+    def __str__(self):
+        return str(self.data)
 
 class Addition():
     def __init__(self, op1, op2):
