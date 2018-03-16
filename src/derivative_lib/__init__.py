@@ -13,22 +13,22 @@ __status__      = "Prototype"  # "Prototype", "Development" or "Production"
 __module__      = ""
 
 
+def normalize(self):
+    if isinstance(self, Symbol):
+        return self
+    elif isinstance(self, Addition):
+        return self
+    return Symbol(self)
+
 class Symbol():
     def __init__(self, data):
         self.data = data
 
     def __eq__(self, op):
-        if isinstance(op, Symbol):
-            return self.data == op.data
-        return self.data == op
+        return normalize(self) == normalize(op):
 
     def __add__(self, op):
-        if isinstance(op, Symbol):
-            return Addition(self, op)
-        elif isinstance(op, Expression):
-            pass
-        else:
-            return self + Symbol(op)
+        return Addition(self, op)
 
     def __sub__(self, op):
         if isinstance(op, Symbol):
@@ -68,8 +68,8 @@ class Symbol():
 
 class Addition():
     def __init__(self, op1, op2):
-        self.op1 = op1
-        self.op2 = op2
+        self.op1 = normalize(op1)
+        self.op2 = normalize(op2)
 
     def __eq__(self, op):
         try:
