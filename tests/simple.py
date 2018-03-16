@@ -65,13 +65,12 @@ class _Symbol(unittest.TestCase):
 
 
 class _Addition(unittest.TestCase):
-    valid_symbols = [(st.integers() |
-                     st.floats() |
-                     st.text(string.ascii_letters, min_size=1)) for _ in
-                     range(2)]
 
     valid_numbers = (st.integers() | st.floats(allow_nan=False,
                                                allow_infinity=False))
+    valid_symbols = [(valid_numbers |
+                     st.text(string.ascii_letters, min_size=1)) for _ in
+                     range(2)]
 
     @given(*valid_symbols)
     def test__init__(self, a, b):
