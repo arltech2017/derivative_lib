@@ -25,7 +25,7 @@ class Symbol():
         self.data = data
 
     def __eq__(self, op):
-        return normalize(self) == normalize(op):
+        return normalize(self) == normalize(op)
 
     def __add__(self, op):
         return Addition(self, op)
