@@ -83,5 +83,8 @@ class Addition():
     def __str__(self):
         return str(self.op1) + " + " + str(self.op2)
 
+    def __add__(self, op):
+        return Addition(self, op)
+
 class Expression():
     pass
