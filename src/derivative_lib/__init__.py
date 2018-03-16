@@ -30,55 +30,10 @@ class Symbol():
         else:
             return self + Symbol(op)
 
-    def __sub__(self, op):
-        if isinstance(op, Symbol):
-            try:
-                return self.data - op.data
-            except TypeError:
-                pass
-        elif isinstance(op, Expression):
-            pass
-        else:
-            return self - Symbol(op)
-
-    def __mul__(self, op):
-        if isinstance(op, Symbol):
-            try:
-                return self.data * op.data
-            except TypeError:
-                pass
-        elif isinstance(op, Expression):
-            pass
-        else:
-            return self * Symbol(op)
-
-    def __truediv__(self, op):
-        if isinstance(op, Symbol):
-            try:
-                return self.data / op.data
-            except TypeError:
-                pass
-        elif isinstance(op, Expression):
-            pass
-        else:
-            return self / Symbol(op)
-
-    def __str__(self):
-        return str(self.data)
-
 class Addition():
     def __init__(self, op1, op2):
         self.op1 = op1
         self.op2 = op2
-
-    def __eq__(self, op):
-        try:
-            result = self.op1 + self.op2
-            if result == op:
-                return True
-            return False
-        except TypeError:
-            return False
 
     def __str__(self):
         return str(self.op1) + " + " + str(self.op2)
