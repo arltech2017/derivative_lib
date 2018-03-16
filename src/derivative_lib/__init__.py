@@ -24,10 +24,7 @@ class Symbol():
 
     def __add__(self, op):
         if isinstance(op, Symbol):
-            try:
-                return self.data + op.data
-            except TypeError:
-                pass
+            return Addition(self+ op)
         elif isinstance(op, Expression):
             pass
         else:
@@ -76,7 +73,7 @@ class Addition():
 
     def __eq__(self, op):
         try:
-            result = op1 + op2
+            result = self.op1 + self.op2
             if result == op:
                 return True
             return False
