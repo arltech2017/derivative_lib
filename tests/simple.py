@@ -63,6 +63,8 @@ class _Addition(unittest.TestCase):
 
         self.assertEqual(Addition(a, b), Symbol(a))
 
+        self.assertEqual(Addition(a, b), Addition(b, a))  # x + y == y + x
+
     @given(*[valid_symbols] * 4)
     def test__add__(self, a, b, c, d):
         self.assertIsInstance(Addition(a, b) + Addition(c, d), Addition)
