@@ -61,9 +61,11 @@ class _Addition(unittest.TestCase):
     def test__eq__(self, a, b):
         self.assertEqual(Addition(a, b), Addition(a, b))
 
-        self.assertEqual(Addition(a, b), Symbol(a))
-
         self.assertEqual(Addition(a, b), Addition(b, a))  # x + y == y + x
+
+    @given(*[valid_symbols] * 3)
+    def test__neq__(self, a, b, c):
+        self.assertNotEqual(Addition(a, b), Symbol(c))
 
     @given(*[valid_symbols] * 4)
     def test__add__(self, a, b, c, d):
