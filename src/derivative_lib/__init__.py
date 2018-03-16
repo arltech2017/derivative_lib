@@ -20,6 +20,7 @@ def normalize(self):
         return self
     return Symbol(self)
 
+
 class Symbol():
     def __init__(self, data):
         self.data = data
@@ -32,6 +33,7 @@ class Symbol():
 
     def __str__(self):
         return str(self.data)
+
 
 class Addition():
     def __init__(self, op1, op2):
@@ -46,4 +48,5 @@ class Addition():
 
     def __eq__(self, op):
         o = normalize(op)
-        return (self.op1 == o.op1 and self.op2 == o.op2) or (self.op1 == o.op2 and self.op2 == o.op1)
+        return (self.op1 == o.op1 and self.op2 == o.op2) or \
+            (self.op1 == o.op2 and self.op2 == o.op1)
