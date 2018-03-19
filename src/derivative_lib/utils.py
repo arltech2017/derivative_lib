@@ -16,7 +16,7 @@ __module__      = ""
 
 class UnorderedList(list):
     def __eq__(self, other):
-        if super().__eq__(other):
+        if super().__eq__(other) is True:  # stupid notimplemented evaluating to true
             return True
         if len(self) != len(other):
             return False
