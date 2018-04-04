@@ -43,3 +43,6 @@ class Addition(Symbol):
 
     def __str__(self):
         return str(self.data[0]) + " + " + str(self.data[1])
+
+    def __eq__(self, op):
+        return set(self.data) == set(op.data)
