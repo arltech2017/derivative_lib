@@ -36,6 +36,15 @@ class Symbol():
     def __sub__(self, op):
         return Subtraction(self, op)
 
+    def __mul__(self, op):
+        return Multiplication(self, op)
+
+    def __truediv__(self, op):
+        return Division(self, op)
+
+    def __pow__(self, op):
+        return Power(self, op)
+
     def __str__(self):
         s = ""
         if self.negative:
