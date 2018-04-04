@@ -12,6 +12,8 @@ __email__       = "marco@sirabella.org"
 __status__      = "Prototype"  # "Prototype", "Development" or "Production"
 __module__      = ""
 
+from collections import Counter
+
 def normalize(self):
     if isinstance(self, Symbol):
         return self
@@ -57,7 +59,7 @@ class Addition(Symbol):
         return str(self.data[0]) + " + " + str(self.data[1])
 
     def __eq__(self, op):
-        return set(self.data) == set(op.data)
+        return Counter(self.data) == Counter(op.data)
 
 class Subtraction(Addition):
     def __init__(self, op1, op2):
