@@ -73,27 +73,27 @@ class Number(Symbol):
 
     def __add__(self, op):
         if isinstance(op, Number):
-            return self.data[0] + op.data[0]
+            return Number(self.data[0] + op.data[0])
         return super().__add__(op)
 
     def __sub__(self, op):
         if isinstance(op, Number):
-            return self.data[0] - op.data[0]
+            return Number(self.data[0] - op.data[0])
         return super().__sub__(op)
 
     def __mul__(self, op):
         if isinstance(op, Number):
-            return self.data[0] * op.data[0]
+            return Number(self.data[0] * op.data[0])
         return super().__mul__(op)
 
     def __truediv__(self, op):
         if isinstance(op, Number):
-            return self.data[0] / op.data[0]
+            return Number(self.data[0] / op.data[0])
         return super().__truediv__(op)
 
     def __pow__(self, op):
         if isinstance(op, Number):
-            return self.data[0] ** op.data[0]
+            return Number(self.data[0] ** op.data[0])
         return super().__pow__(op)
 
     def __neg__(self):
@@ -105,7 +105,7 @@ class Addition(Symbol):
         self.data = (normalize(op1), normalize(op2))
 
     def __str__(self):
-        return str(self.data[0]) + " + " + str(self.data[1])
+        return "(" + str(self.data[0]) + " + " + str(self.data[1]) + ")"
 
     def __eq__(self, op):
         return Counter(self.data) == Counter(op.data) and isinstance(op, Addition)
@@ -118,14 +118,14 @@ class Subtraction(Addition):
         self.data = (normalize(op1), -normalize(op2))
 
     def __str__(self):
-        return str(self.data[0]) + " - " + str(-self.data[1])
+        return "(" + str(self.data[0]) + " - " + str(-self.data[1]) + ")"
 
 class Multiplication(Symbol):
     def __init__(self, op1, op2):
         self.data = (normalize(op1), normalize(op2))
 
     def __str__(self):
-        return str(self.data[0]) + " * " + str(self.data[1])
+        return "(" + str(self.data[0]) + " * " + str(self.data[1]) + ")"
 
     def __eq__(self, op):
         return Counter(self.data) == Counter(op.data) and isinstance(op, Multiplication)
@@ -138,14 +138,17 @@ class Division(Multiplication):
         self.data = (normalize(op1), normalize(op2) ** -1)
 
     def __str__(self):
-        return str(self.data[0]) + " / " + str(self.data[1])
+        return "(" + str(self.data[0]) + " / " + str(self.data[1]) + ")"
 
 class Power(Symbol):
     def __init__(self, op1, op2):
         self.data = (normalize(op1), normalize(op2))
 
     def __str__(self):
-        return str(self.data[1]) + " ** " + str(self.data[2])
+        return "(" + str(self.data[0]) + " ** " + str(self.data[1]) + ")"
 
     def __eq__(self, op):
         return self.data == op.data
+
+    def derivative(self):
+        return self.data[1] * (self.data[0] ** (self.data[1] - Number(1)))
