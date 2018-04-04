@@ -73,3 +73,34 @@ class _Addition(unittest.TestCase):
 
         self.assertIsInstance(Addition(a, b) + Symbol(c), Addition)
         self.assertIsInstance(Symbol(a) + Addition(b, c), Addition)
+
+
+class _Subtraction(unittest.TestCase):
+
+    valid_symbols = st.text(string.ascii_letters, min_size=1)
+
+    @given(*[valid_symbols] * 2)
+    def test__init__(self, a, b):
+        Subtraction(a, b)
+
+    @given(*[valid_symbols] * 2)
+    def test__str__(self, a, b):
+        self.assertEqual(str(a) + ' - ' + str(b), str(Subtraction(a, b)))
+
+    @given(*[valid_symbols] * 2)
+    def test__eq__(self, a, b):
+        self.assertEqual(Subtraction(a, b), Subtraction(a, b))
+        self.assertEqual(Subtraction(a, b), Addition(a, -b))
+        self.assertEqual(Subtraction(a, b), Subtraction(-b, -a))
+
+    @given(*[valid_symbols] * 3)
+    def test__neq__(self, a, b, c):
+        self.assertNotEqual(Subtraction(a, b), Symbol(c))
+        self.assertNotEqual(Subtraction(a, b), Subtraction(b, a))
+
+    @given(*[valid_symbols] * 4)
+    def test__add__(self, a, b, c, d):
+        self.assertIsInstance(Subtraction(a, b) + Subtraction(c, d), Subtraction)
+
+        self.assertIsInstance(Subtraction(a, b) + Symbol(c), Subtraction)
+        self.assertIsInstance(Symbol(a) + Subtraction(b, c), Subtraction)
