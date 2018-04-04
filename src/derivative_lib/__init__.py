@@ -63,6 +63,39 @@ class Symbol():
         return s 
 
 
+class Number(Symbol):
+    def __init__(self, data):
+        self.data = (data,)
+
+    def __add__(self, op):
+        if isinstance(op, Number):
+            return self.data[0] + op.data[0]
+        return super().__add__(op)
+
+    def __sub__(self, op):
+        if isinstance(op, Number):
+            return self.data[0] - op.data[0]
+        return super().__sub__(op)
+
+    def __mul__(self, op):
+        if isinstance(op, Number):
+            return self.data[0] * op.data[0]
+        return super().__mul__(op)
+
+    def __truediv__(self, op):
+        if isinstance(op, Number):
+            return self.data[0] / op.data[0]
+        return super().__truediv__(op)
+
+    def __pow__(self, op):
+        if isinstance(op, Number):
+            return self.data[0] ** op.data[0]
+        return super().__pow__(op)
+
+    def __neg__(self):
+        return Number(-self.data[0])
+
+
 class Addition(Symbol):
     def __init__(self, op1, op2):
         self.data = (normalize(op1), normalize(op2))
