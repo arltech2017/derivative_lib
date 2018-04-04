@@ -13,7 +13,7 @@ __status__      = "Prototype"  # "Prototype", "Development" or "Production"
 __module__      = ""
 
 from collections import Counter
-import numbers.Number
+import numbers
 
 def normalize(self):
     if isinstance(self, Symbol):
