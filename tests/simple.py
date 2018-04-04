@@ -5,7 +5,7 @@ from hypothesis import given, reproduce_failure
 from hypothesis import strategies as st
 import string
 
-from derivative_lib import Symbol, Addition
+from derivative_lib import Symbol, Addition, Subtraction
 
 __appname__     = "simple"
 __author__      = "Marco Sirabella"
