@@ -13,12 +13,13 @@ __status__      = "Prototype"  # "Prototype", "Development" or "Production"
 __module__      = ""
 
 from collections import Counter
+import numbers.Number
 
 def normalize(self):
     if isinstance(self, Symbol):
         return self
-    elif isinstance(self, Addition):
-        return self
+    if isinstance(self, numbers.Number):
+        return Number(self)
     return Symbol(self)
 
 
