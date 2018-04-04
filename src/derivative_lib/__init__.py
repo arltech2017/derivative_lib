@@ -32,7 +32,10 @@ class Symbol():
         return Addition(self, op)
 
     def __str__(self):
-        return str(self.data[0])
+        s = ""
+        if self.negative:
+            s+='-'
+        return s + str(self.data[0])
 
     def __repr__(self):
         return str(self)
@@ -40,8 +43,10 @@ class Symbol():
     def __hash__(self):
         return hash(self.data)
 
-    def __neg__(self, neg):
-        self.negative = neg
+    def __neg__(self):
+        s = Symbol(self.data[0])
+        s.negative = self.negative ^ True
+        return s 
 
 
 class Addition(Symbol):
@@ -59,4 +64,4 @@ class Subtraction(Addition):
         self.data = (normalize(op1), -normalize(op2))
 
     def __str__(self):
-        return str(self.data[0] + " - " + str(self.data[1]))
+        return str(self.data[0]) + " - " + str(-self.data[1])
