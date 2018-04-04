@@ -11,10 +11,10 @@ include python.mk
 .DEFAULT_GOAL := test
 
 .IGNORE: test
-test: test_syntax $(TESTDIR)/requirements.txt
+test: test_syntax# $(TESTDIR)/requirements.txt
 	python3 -m unittest -v $(TESTS)
 
 .IGNORE: test_syntax 
-test_syntax: $(TESTDIR)/requirements.txt
+test_syntax: #$(TESTDIR)/requirements.txt
 	pycodestyle $(SRCS)
 
