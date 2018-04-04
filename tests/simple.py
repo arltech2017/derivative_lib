@@ -96,11 +96,12 @@ class _Subtraction(unittest.TestCase):
     @given(*[valid_symbols] * 3)
     def test__neq__(self, a, b, c):
         self.assertNotEqual(Subtraction(a, b), Symbol(c))
-        self.assertNotEqual(Subtraction(a, b), Subtraction(b, a))
+        if a != b:
+            self.assertNotEqual(Subtraction(a, b), Subtraction(b, a))
 
     @given(*[valid_symbols] * 4)
     def test__add__(self, a, b, c, d):
-        self.assertIsInstance(Subtraction(a, b) + Subtraction(c, d), Subtraction)
+        self.assertIsInstance(Subtraction(a, b) + Subtraction(c, d), Addition)
 
-        self.assertIsInstance(Subtraction(a, b) + Symbol(c), Subtraction)
-        self.assertIsInstance(Symbol(a) + Subtraction(b, c), Subtraction)
+        self.assertIsInstance(Subtraction(a, b) + Symbol(c), Addition)
+        self.assertIsInstance(Symbol(a) + Subtraction(b, c), Addition)
