@@ -22,7 +22,8 @@ def normalize(self):
 
 class Symbol():
     def __init__(self, data):
-        self.data = data
+        self.data = (data,)
+        self.negative = False
 
     def __eq__(self, op):
         return self.data == normalize(op).data
@@ -31,7 +32,7 @@ class Symbol():
         return Addition(self, op)
 
     def __str__(self):
-        return str(self.data)
+        return str(self.data[0])
 
     def __repr__(self):
         return str(self)
@@ -39,13 +40,23 @@ class Symbol():
     def __hash__(self):
         return hash(self.data)
 
+    def __neg__(self, neg):
+        self.negative = neg
+
 
 class Addition(Symbol):
     def __init__(self, op1, op2):
-        self.data = [normalize(op1), normalize(op2)]
+        self.data = (normalize(op1), normalize(op2))
 
     def __str__(self):
         return str(self.data[0]) + " + " + str(self.data[1])
 
     def __eq__(self, op):
         return set(self.data) == set(op.data)
+
+class Subtraction(Addition):
+    def __init__(self, op1, op2):
+        self.data = (normalize(op1), -normalize(op2))
+
+    def __str__(self):
+        return str(self.data[0] + " - " + str(self.data[1]))
