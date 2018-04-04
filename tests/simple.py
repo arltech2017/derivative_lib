@@ -90,8 +90,8 @@ class _Subtraction(unittest.TestCase):
     @given(*[valid_symbols] * 2)
     def test__eq__(self, a, b):
         self.assertEqual(Subtraction(a, b), Subtraction(a, b))
-        self.assertEqual(Subtraction(a, b), Addition(a, -b))
-        self.assertEqual(Subtraction(a, b), Subtraction(-b, -a))
+        self.assertEqual(Subtraction(a, b), Addition(a, -Symbol(b)))
+        self.assertEqual(Subtraction(a, b), Subtraction(-Symbol(b), -Symbol(a)))
 
     @given(*[valid_symbols] * 3)
     def test__neq__(self, a, b, c):
