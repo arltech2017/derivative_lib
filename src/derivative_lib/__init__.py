@@ -26,7 +26,7 @@ class Symbol():
         self.negative = False
 
     def __eq__(self, op):
-        return self.data == normalize(op).data
+        return str(self.data) == str(normalize(op).data)
 
     def __add__(self, op):
         return Addition(self, op)
@@ -41,7 +41,7 @@ class Symbol():
         return str(self)
 
     def __hash__(self):
-        return hash(self.data)
+        return hash(str(self))
 
     def __neg__(self):
         s = Symbol(self.data[0])
