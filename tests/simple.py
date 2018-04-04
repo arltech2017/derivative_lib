@@ -105,3 +105,11 @@ class _Subtraction(unittest.TestCase):
 
         self.assertIsInstance(Subtraction(a, b) + Symbol(c), Addition)
         self.assertIsInstance(Symbol(a) + Subtraction(b, c), Addition)
+
+    @given(*[valid_symbols] * 4)
+    def test__sub__(self, a, b, c, d):
+        self.assertIsInstance(Subtraction(a, b) - Subtraction(c, d),
+                Subtraction)
+
+        self.assertIsInstance(Subtraction(a, b) - Symbol(c), Subtraction)
+        self.assertIsInstance(Symbol(a) - Subtraction(b, c), Subtraction)
