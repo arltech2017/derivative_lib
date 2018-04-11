@@ -213,4 +213,4 @@ class Power(Symbol):
         return self
 
     def derivative(self):
-        return (self.data[1] * ((self.data[0] ** (self.data[1] - Number(1))) * self.data[1].derivative()))
+        return (self.data[1] * ((self.data[0] ** (self.data[1] - Number(1))) * self.data[0].derivative()))
