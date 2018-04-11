@@ -112,4 +112,4 @@ def parse(binaryTree):
 
 while True:
     y = buildParseTree('(' + input() + ')').simplify()
-    print(parse(y))
+    print(parse(y).derivative())
