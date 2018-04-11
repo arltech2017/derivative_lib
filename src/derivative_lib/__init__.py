@@ -123,9 +123,9 @@ class Addition(Symbol):
         return Subtraction(-self.data[0], self.data[1])
 
     def simplify(self):
-        if self.data[0] == 0:
+        if self.data[0] == Number(0):
             return self.data[1]
-        elif self.data[1] == 0:
+        elif self.data[1] == Number(0):
             return self.data[0]
         elif self.data[0] == self.data[1]:
             return self.data[0] * Number(2)
@@ -142,9 +142,9 @@ class Subtraction(Addition):
         return "(" + str(self.data[0]) + " - " + str(-self.data[1]) + ")"
 
     def simplify(self):
-        if self.data[0] == 0:
+        if self.data[0] == Number(0):
             return -self.data[1]
-        elif self.data[1] == 0:
+        elif self.data[1] == Number(0):
             return self.data[0]
         elif self.data[0] == self.data[1]:
             return Number(0)
@@ -167,15 +167,15 @@ class Multiplication(Symbol):
         return Multiplication(-self.data[0], self.data[1])
 
     def simplify(self):
-        if self.data[0] == 0 or self.data[1] == 0:
+        if self.data[0] == Number(0) or self.data[1] == Number(0):
             return Number(0)
-        if self.data[0] == 1:
+        if self.data[0] == Number(1):
             return self.data[1]
-        elif self.data[0] == -1:
+        elif self.data[0] == Number(-1):
             return -self.data[1]
-        elif self.data[1] == 1:
+        elif self.data[1] == Number(1):
             return self.data[0]
-        elif self.data[1] == -1:
+        elif self.data[1] == Number(-1):
             return -self.data[0]
         elif self.data[0] == self.data[1]:
             return self.data[0] ** Number(2)
@@ -204,11 +204,11 @@ class Power(Symbol):
         return self.data == op.data
 
     def simplify(self):
-        if self.data[1] == 0:
+        if self.data[1] == Number(0):
             return Number(1)
-        if self.data[1] == 1:
+        if self.data[1] == Number(1):
             return self.data[0]
-        if self.data[0] == 0: #must come after self.data[1] == 0
+        if self.data[0] == Number(0): #must come after self.data[1] == 0
             return Number(0)
         return self
 
