@@ -72,7 +72,7 @@ class Number(Symbol):
         self.data = (data,)
 
     def __eq__(self, op):
-        if self.data == normalize(op).data
+        return self.data == normalize(op).data
 
     def __str__(self):
         return str(self.data[0])
