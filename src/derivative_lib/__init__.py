@@ -66,6 +66,9 @@ class Symbol():
     def derivative(self):
         return Number(1)
 
+    def simplify(self):
+        return self
+
 
 class Number(Symbol):
     def __init__(self, data):
