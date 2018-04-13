@@ -115,6 +115,7 @@ def parse(expression):
     return parseParseTree(tree)
 
 
+import readline
 while True:
     t = parse('({})'.format(input('> ')))
     print('{}\' = {}'.format(t, t.derivative()))
