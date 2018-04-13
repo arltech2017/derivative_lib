@@ -68,6 +68,10 @@ class Symbol():
 
 
 class Number(Symbol):
+    @property
+    def negative(self):
+        return self.data[0] < 0
+
     def __init__(self, data):
         self.data = (data,)
 
@@ -97,6 +101,8 @@ class Number(Symbol):
 
     def __truediv__(self, op):
         if isinstance(op, Number):
+            if op.data[0] == 0:
+                return "INFINITY"
             return Number(self.data[0] / op.data[0])
         return super().__truediv__(op)
 
@@ -113,6 +119,10 @@ class Number(Symbol):
 
 
 class Addition(Symbol):
+    @property
+    def negative(self):
+        return False
+
     def __init__(self, op1, op2):
         self.data = (normalize(op1), normalize(op2))
 
@@ -135,12 +145,22 @@ class Addition(Symbol):
             return self.data[0]
         elif self.data[0] == self.data[1]:
             return self.data[0] * Number(2)
+
+        if self.data[1].negative:
+            return self.data[0] - (-self.data[1])
+        elif self.data[0].negative:
+            return self.data[1] - (-self.data[0])
+
         return self
 
     def derivative(self):
         return self.data[0].derivative() + self.data[1].derivative()
 
 class Subtraction(Addition):
+    @property
+    def negative(self):
+        return False
+
     def __init__(self, op1, op2):
         self.data = (normalize(op1), -normalize(op2))
 
