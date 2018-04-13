@@ -119,6 +119,9 @@ class Addition(Symbol):
     def __str__(self):
         return "(" + str(self.data[0]) + " + " + str(self.data[1]) + ")"
 
+    def __hash__(self):
+        return hash(self.data)
+
     def __eq__(self, op):
         return Counter(self.data) == Counter(op.data) and isinstance(op, Addition)
 
@@ -208,6 +211,9 @@ class Power(Symbol):
 
     def __eq__(self, op):
         return self.data == op.data
+
+    def __hash__(self):
+        return hash(str(self))
 
     def simplify(self):
         if self.data[1] == Number(0):
