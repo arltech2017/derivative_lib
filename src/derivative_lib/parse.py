@@ -94,7 +94,7 @@ def buildParseTree(fpexp):
             currentTree.insertLeft('')
             pStack.push(currentTree)
             currentTree = currentTree.getLeftChild()
-        elif i not in ['+', '-', '*', '/', ')']:
+        elif i not in ['+', '-', '*', '**', '/', ')']:
             currentTree.setRootVal(i)
             parent = pStack.pop()
             currentTree = parent
