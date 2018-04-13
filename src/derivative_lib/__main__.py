@@ -104,12 +104,17 @@ def translate(symbol):
         return Symbol(symbol)
 
 
-def parse(binaryTree):
+def parseParseTree(binaryTree):
     op = translate(binaryTree.val)
     if binaryTree.left is not None and binaryTree.right is not None:
-        return op(parse(binaryTree.left), parse(binaryTree.right))
+        return op(parseParseTree(binaryTree.left), parseParseTree(binaryTree.right))
     return op
 
+def parse(expression):
+    tree = buildParseTree(expression).simplify()
+    return parseParseTree(tree)
+
+
 while True:
-    y = buildParseTree('(' + input() + ')').simplify()
-    print('{}\' = {}'.format(parse(y), parse(y).derivative()))
+    t = parse('({})'.format(input('> ')))
+    print('{}\' = {}'.format(t, t.derivative()))
