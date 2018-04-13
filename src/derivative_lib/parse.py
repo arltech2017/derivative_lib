@@ -60,9 +60,29 @@ def nospace_parse_decorator(func):
 
 import operator
 symbols = {'*': operator.mul, '**': operator.pow, '+': operator.add}
+def doParens(expr):
+    # 1 + 1 + 1 => ( ( 1 + 1 ) + 1 )
+    basic_expression = re.compile('(\d+|[A-z]+|\(.*\)) ([+-/*]|\*\*) (\d+|[A-z]+|\(.*\))(.*)')
+    while True:
+        z = basic_expression.findall(expr)
+        if not z:
+            break
+
+        expr = expr.replace('{} {} {}'.format(*z[0][:3]),
+                '( {} {} {} )'.format(*z[0][:3]))
+
+        if not z[0][-1]:
+            break
+
+    return expr
+
+def parenthesis_decorator(func):
+    return lambda fpexp: func(doParens(fpexp))
+
 
 # FFrom interactive python book
 @nospace_parse_decorator
+@parenthesis_decorator
 def buildParseTree(fpexp):
     fplist = fpexp.split()
     pStack = Stack()

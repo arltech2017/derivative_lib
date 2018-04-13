@@ -16,5 +16,5 @@ __status__      = "Prototype"  # "Prototype", "Development" or "Production"
 __module__      = ""
 
 while True:
-    t = parse('({})'.format(input('> ')))
+    t = parse(input('> '))
     print('{}\' = {}'.format(t, t.derivative().simplify()))
