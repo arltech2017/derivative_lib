@@ -74,6 +74,9 @@ class Number(Symbol):
     def __eq__(self, op):
         return self.data == normalize(op).data
 
+    def __hash__(self):
+        return hash(self.data)
+
     def __str__(self):
         return str(self.data[0])
 
@@ -162,6 +165,9 @@ class Multiplication(Symbol):
 
     def __eq__(self, op):
         return Counter(self.data) == Counter(op.data) and isinstance(op, Multiplication)
+
+    def __hash__(self):
+        return hash(self.data)
 
     def __neg__(self):
         return Multiplication(-self.data[0], self.data[1])
