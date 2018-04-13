@@ -111,8 +111,5 @@ def parse(binaryTree):
     return op
 
 while True:
-    try:
-        y = buildParseTree('(' + input() + ')').simplify()
-        print('{}\' = {}'.format(parse(y), parse(y).derivative()))
-    except:
-        continue
+    y = buildParseTree('(' + input() + ')').simplify()
+    print('{}\' = {}'.format(parse(y), parse(y).derivative()))
