@@ -14,7 +14,6 @@ __module__      = ""
 
 
 from __init__ import *
-print(dir())
 
 
 def tryToDigit(numeric_string):
