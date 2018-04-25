@@ -226,7 +226,7 @@ class Division(Multiplication):
         print(self.data)
 
     def __str__(self):
-        return "(" + str(self.data[0]) + " / " + str(Number(1)/self.data[1]) + ")"
+        return "(" + str(self.data[0]) + " / " + str(self.data[1] ** -1) + ")"
 
 
 class Power(Symbol):
