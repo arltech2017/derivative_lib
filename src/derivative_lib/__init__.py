@@ -196,9 +196,10 @@ class Multiplication(Symbol):
         return hash(self.data)
 
     def __neg__(self):
-        return Multiplication(-self.data[0], self.data[1])
+        return -self.data[0] ** self.data[1]
 
     def simplify(self):
+        print(self)
         if self.data[0] == Number(0) or self.data[1] == Number(0):
             return Number(0)
         if self.data[0] == Number(1):
@@ -216,13 +217,16 @@ class Multiplication(Symbol):
     def derivative(self):
         return (self.data[0].derivative() * self.data[1]) + (self.data[0] * self.data[1].derivative())
 
+#def Division(op1, op2):
+    #return normalize(op1) * (normalize(op2) ** -1)
 
 class Division(Multiplication):
     def __init__(self, op1, op2):
         self.data = (normalize(op1), normalize(op2) ** -1)
+        print(self.data)
 
     def __str__(self):
-        return "(" + str(self.data[0]) + " / " + str(self.data[1]) + ")"
+        return "(" + str(self.data[0]) + " / " + str(Number(1)/self.data[1]) + ")"
 
 
 class Power(Symbol):
@@ -239,6 +243,9 @@ class Power(Symbol):
         return hash(str(self))
 
     def simplify(self):
+        print(self)
+        if isinstance(self.data[0], Power):
+            return self.data[0].data[0] ** (self.data[0].data[1] * self.data[1])
         if self.data[1] == Number(0):
             return Number(1)
         if self.data[1] == Number(1):
