@@ -59,7 +59,7 @@ def nospace_parse_decorator(func):
     return lambda fpexp: func(' '.join(re.findall('(\d+|[A-z]+|\*\*|[+-/*()])', fpexp)))
 
 import operator
-symbols = {'*': operator.mul, '**': operator.pow, '+': operator.add}
+symbols = {'*': operator.mul, '**': operator.pow, '+': operator.add, "-": operator.mul, "/": operator.truediv}
 def doParens(expr):
     # 1 + 1 + 1 => ( ( 1 + 1 ) + 1 )
     basic_expression = re.compile('(\d+|[A-z]+|\(.*\)) ([+-/*]|\*\*) (\d+|[A-z]+|\(.*\))(.*)')
@@ -94,7 +94,7 @@ def buildParseTree(fpexp):
             currentTree.insertLeft('')
             pStack.push(currentTree)
             currentTree = currentTree.getLeftChild()
-        elif i not in ['+', '-', '*', '**', '/', ')']:
+        elif i not in list(symbols.keys()) + [')']:
             currentTree.setRootVal(i)
             parent = pStack.pop()
             currentTree = parent
