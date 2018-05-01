@@ -26,7 +26,7 @@ def normalize(self):
 class Symbol():
     def __init__(self, data):
         self.data = (data,)
-        self.negative = False
+        self.negative = False 
 
     def __eq__(self, op):
         return str(self.data) == str(normalize(op).data)
@@ -183,6 +183,10 @@ class Subtraction(Addition):
         return self.data[0].derivative() - self.data[1].derivative()
 
 class Multiplication(Symbol):
+    @property
+    def negative(self):
+        return False
+
     def __init__(self, op1, op2):
         self.data = (normalize(op1), normalize(op2))
 
@@ -199,12 +203,11 @@ class Multiplication(Symbol):
         return -self.data[0] ** self.data[1]
 
     def simplify(self):
-        print(self)
         if self.data[0] == Number(0) or self.data[1] == Number(0):
             return Number(0)
         if self.data[0] == Number(1):
             return self.data[1]
-        elif self.data[0] == Number(-1):
+        elif self.data[0] == Number(-1) and not isinstance(self.data[1], Power): #How do you make a power function negative?
             return -self.data[1]
         elif self.data[1] == Number(1):
             return self.data[0]
@@ -223,13 +226,16 @@ class Multiplication(Symbol):
 class Division(Multiplication):
     def __init__(self, op1, op2):
         self.data = (normalize(op1), normalize(op2) ** -1)
-        print(self.data)
 
     def __str__(self):
         return "(" + str(self.data[0]) + " / " + str(self.data[1] ** -1) + ")"
 
 
 class Power(Symbol):
+    @property
+    def negative(self):
+        return False
+
     def __init__(self, op1, op2):
         self.data = (normalize(op1), normalize(op2))
 
@@ -242,10 +248,12 @@ class Power(Symbol):
     def __hash__(self):
         return hash(str(self))
 
+    def __neg__(self):
+        return Number(-1)
+
     def simplify(self):
-        print(self)
         if isinstance(self.data[0], Power):
-            return self.data[0].data[0] ** (self.data[0].data[1] * self.data[1])
+            return (self.data[0].data[0] ** (self.data[0].data[1] * self.data[1]))
         if self.data[1] == Number(0):
             return Number(1)
         if self.data[1] == Number(1):
@@ -255,4 +263,10 @@ class Power(Symbol):
         return self
 
     def derivative(self):
+        x = self.data[0] ** (self.data[1] - Number(1))
+        y = self.data[0].derivative()
+        z = x * y
+        print(z)
+        print(self.data[1])
+        print(self.data[1] * z)
         return (self.data[1] * ((self.data[0] ** (self.data[1] - Number(1))) * self.data[0].derivative()))
